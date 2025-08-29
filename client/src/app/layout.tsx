@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import DevNavigation from "@/components/DevNavigation";
 import DevQuickActions from "@/components/DevQuickActions";
+import HydrationSuppressor from "@/components/HydrationSuppressor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Real Estate Chatbot",
-  description: "AI-powered real estate assistant chatbot",
+  title: "Real Estate App",
+  description: "Real Estate Application with Authentication",
 };
 
 export default function RootLayout({
@@ -25,10 +26,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
+        <HydrationSuppressor />
         <DevNavigation />
         {children}
         <DevQuickActions />
