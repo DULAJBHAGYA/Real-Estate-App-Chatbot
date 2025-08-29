@@ -1,15 +1,25 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 export default function DevNavigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Only show in development
   if (process.env.NODE_ENV === 'production') {
+    return null;
+  }
+
+  // Don't render until mounted to avoid hydration issues
+  if (!mounted) {
     return null;
   }
 

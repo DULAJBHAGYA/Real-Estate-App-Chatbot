@@ -1,12 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function DevQuickActions() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Only show in development
   if (process.env.NODE_ENV === 'production') {
+    return null;
+  }
+
+  // Don't render until mounted to avoid hydration issues
+  if (!mounted) {
     return null;
   }
 
